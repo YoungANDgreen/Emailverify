@@ -13,17 +13,24 @@
           },
           body: JSON.stringify({ token })
         })
-        .then(response => response.json())
+        .then(response => {
+          console.log('Response status:', response.status, 'Headers:', response.headers);
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.json();
+        })
         .then(data => {
-          console.log('Email verified:', data);
+          console.log('Email verified data:', data);
           alert('Email verified successfully! You can now log in.');
-          window.location.href = 'exp://6iynw7m-anonymous-8081.exp.direct'; // Redirect to your Expo app
+          window.location.href = 'exp://6iynw7m-anonymous-8081.exp.direct'; // Update with your current Expo URL
         })
         .catch(error => {
           console.error('Error verifying email:', error);
           alert('Error verifying email. Please try again or contact support.');
         });
       } else {
+        console.error('No verification token found in URL');
         alert('No verification token found. Please check the link.');
       }
     </script>
