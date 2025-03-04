@@ -4,6 +4,7 @@
       const url = new URL(window.location.href);
       const token = url.searchParams.get('token');
       if (token) {
+        console.log('Verifying token:', token);
         fetch('https://pnuhdgujkrurjyqijtda.supabase.co/auth/v1/verify', {
           method: 'POST',
           headers: {
