@@ -1,0 +1,30 @@
+<html>
+  <body>
+    <script>
+      const url = new URL(window.location.href);
+      const token = url.searchParams.get('token');
+      if (token) {
+        fetch('https://pnuhdgujkrurjyqijtda.supabase.co/auth/v1/verify', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBudWhkZ3Vqa3J1cmp5cWlqdGRhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDA4NjYwOTcsImV4cCI6MjA1NjQ0MjA5N30.oJ0aungB__lik9vMoxRvidQyQNb2hpd5xa_WK8Exylg'
+          },
+          body: JSON.stringify({ token })
+        })
+        .then(response => response.json())
+        .then(data => {
+          console.log('Email verified:', data);
+          alert('Email verified successfully! You can now log in.');
+          window.location.href = 'exp://10.48.30.112'; // Redirect to your Expo app
+        })
+        .catch(error => {
+          console.error('Error verifying email:', error);
+          alert('Error verifying email. Please try again or contact support.');
+        });
+      } else {
+        alert('No verification token found. Please check the link.');
+      }
+    </script>
+  </body>
+</html>
